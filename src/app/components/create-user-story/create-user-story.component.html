@@ -1,0 +1,54 @@
+<div class="create-user-wrapper" fxLayout="row" fxLayoutAlign="center center">
+
+    <mat-card class="box">
+      <mat-card-header>
+        <mat-card-title>Create User Story</mat-card-title>
+      </mat-card-header>
+  
+      <form class="example-form">
+        <mat-card-content>
+          <mat-form-field class="example-full-width">
+            <input matInput type="text" placeholder="Summary">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Description</mat-label>
+            <textarea matInput placeholder="Ex. I would like to report a bug..."></textarea>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Type</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let type of types" [value]="type.value">
+                {{type.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Complexity</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let complexity of complexities" [value]="complexity.value">
+                {{complexity.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <input matInput type="text" placeholder="Estimated time for completion">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Cost associated to it</mat-label>
+            <span matPrefix>$ &nbsp;</span>
+            <input type="number" matInput placeholder="150">
+          </mat-form-field>
+  
+
+        </mat-card-content>
+        <button mat-stroked-button color="primary" class="btn-block">SUBMIT</button>
+      </form>
+    </mat-card>
+  
+  </div>
+  

@@ -1,0 +1,30 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+
+    <mat-card class="box">
+      <mat-card-header>
+        <mat-card-title>Log in</mat-card-title>
+      </mat-card-header>
+  
+      <form class="example-form" #f="ngForm" (ngSubmit)="signIn(f.value)">
+        <mat-card-content>
+          <mat-form-field class="example-full-width">
+            <input matInput type="text" placeholder="Email ID" ngModel name="email">
+          </mat-form-field>
+  
+          <mat-form-field class="example-full-width">
+            <input matInput type="password" placeholder="Password" ngModel name="password">
+          </mat-form-field>
+
+            Login as ? User 
+            <mat-slide-toggle color="primary" ngModel name="isAdmin"> 
+              Admin 
+            </mat-slide-toggle>
+
+        </mat-card-content>
+        <br><br>
+        <button mat-stroked-button color="primary" class="btn-block">Submit</button>
+      </form>
+    </mat-card>
+  
+  </div>
+  

@@ -1,0 +1,11 @@
+<mat-toolbar color="primary" class="app-header">
+  <div><a routerLink="" class="archiTitle">Archimydes - User Stories</a></div>
+  <span class="nav-tool-items">
+    <a mat-button routerLink="login" *ngIf="!isloggedin" mat-raised-button routerLinkActive="active">Log in</a>
+    <a mat-button routerLink="register">Register</a>
+    <a mat-button (click)="logout()" *ngIf="isloggedin">Log out</a>
+
+  </span>
+</mat-toolbar>
+
+<router-outlet></router-outlet>
