@@ -12,10 +12,10 @@ In the terminal run
 Afterward, run `ng serve -o` for a dev server. Your default browser would open the app in `http://localhost:4200/`. Also, the app will automatically reload if you change any of the source files.
 
 Remember to download and run the Backend API repo.
-$ git clone https://github.com/Archimydes/coding-challenges.git
-$ cd coding-challenges
-$ npm install
-$ npm start
+- `$ git clone https://github.com/Archimydes/coding-challenges.git`
+- `$ cd coding-challenges`
+- `$ npm install`
+- `$ npm start`
 
 
 ## Build for Production
