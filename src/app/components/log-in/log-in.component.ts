@@ -1,4 +1,4 @@
-import { AuthService } from './../../auth.service';
+import { AuthService } from '../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -23,11 +23,10 @@ export class LogInComponent implements OnInit {
     credentials.isAdmin = false : 
     credentials.isAdmin = true;
 
-    console.log(credentials);
+    // console.log(credentials);
 
     this._auth.login(credentials)
     .subscribe(res => {
-      console.log(res);
       if(res) this._router.navigate(['create-user-story']);
       if(!res) {
         this.invalidLogin = true;

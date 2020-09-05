@@ -1,4 +1,4 @@
-import { AuthService } from './auth.service';
+import { AuthService } from './services/auth.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   title = 'archimydes-frontend';
   isloggedin:any;

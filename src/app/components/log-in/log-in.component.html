@@ -8,11 +8,31 @@
       <form class="example-form" #f="ngForm" (ngSubmit)="signIn(f.value)">
         <mat-card-content>
           <mat-form-field class="example-full-width">
-            <input matInput type="text" placeholder="Email ID" ngModel name="email">
+            <input 
+            ngModel
+            matInput 
+            type="email" 
+            placeholder="Email ID" 
+            name="email" 
+            #email="ngModel"
+            required>
+            <mat-error *ngIf="email.invalid && email.errors.required">
+              The email field is required.
+            </mat-error>
           </mat-form-field>
   
           <mat-form-field class="example-full-width">
-            <input matInput type="password" placeholder="Password" ngModel name="password">
+            <input 
+            ngModel
+            matInput 
+            type="password" 
+            placeholder="Password" 
+            name="password"
+            #password="ngModel"
+            required>
+            <mat-error *ngIf="password.invalid && password.errors.required">
+              The password field is required.
+            </mat-error>
           </mat-form-field>
 
             Login as ? User 

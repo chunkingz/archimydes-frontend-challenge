@@ -20,10 +20,11 @@ Remember to download and run the Backend API repo.
 
 ## Build for Production
 
-Run `ng build --prod` to build the project for production deployment. The build artifacts will be stored in the `dist/` directory
+- Run `ng build --prod` to build the project for production deployment. The build artifacts will be stored in the `dist/` directory
 
 
 ## Figma UI (Wireframing)
 
-A rough sketch of the project can be found here.
+- A rough sketch of the project can be found here.
 
+Built with :heart:

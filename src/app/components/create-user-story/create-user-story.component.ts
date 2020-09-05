@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 interface ITypes {
   value: string;
@@ -15,12 +17,12 @@ interface IComplexities {
   templateUrl: './create-user-story.component.html',
   styleUrls: ['./create-user-story.component.css']
 })
+
 export class CreateUserStoryComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _router: Router, private _auth: AuthService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit() { }
 
   types: ITypes[] = [
     {value: 'enhancement', viewValue: 'enhancement'},
@@ -35,4 +37,12 @@ export class CreateUserStoryComponent implements OnInit {
     {value: 'High', viewValue: 'High'}
   ];
 
+  createUserStory(story){
+    console.log(story);
+    
+    this._auth.postStory(story)
+    .subscribe(res => {
+      console.log(res);
+    })
+  }
 }

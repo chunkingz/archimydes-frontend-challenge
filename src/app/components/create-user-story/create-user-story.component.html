@@ -5,20 +5,20 @@
         <mat-card-title>Create User Story</mat-card-title>
       </mat-card-header>
   
-      <form class="example-form">
+      <form class="example-form" #f="ngForm" (ngSubmit)="createUserStory(f.value)">
         <mat-card-content>
           <mat-form-field class="example-full-width">
-            <input matInput type="text" placeholder="Summary">
+            <input ngModel name="summary" matInput type="text" placeholder="Summary">
           </mat-form-field>
 
           <mat-form-field class="example-full-width">
             <mat-label>Description</mat-label>
-            <textarea matInput placeholder="Ex. I would like to report a bug..."></textarea>
+            <textarea ngModel name="description" matTextareaAutosize matInput placeholder="Ex. I would like to report a bug..."></textarea>
           </mat-form-field>
 
           <mat-form-field class="example-full-width">
             <mat-label>Type</mat-label>
-            <mat-select>
+            <mat-select ngModel name="type">
               <mat-option *ngFor="let type of types" [value]="type.value">
                 {{type.viewValue}}
               </mat-option>
@@ -27,7 +27,7 @@
 
           <mat-form-field class="example-full-width">
             <mat-label>Complexity</mat-label>
-            <mat-select>
+            <mat-select ngModel name="complexity">
               <mat-option *ngFor="let complexity of complexities" [value]="complexity.value">
                 {{complexity.viewValue}}
               </mat-option>
@@ -35,13 +35,13 @@
           </mat-form-field>
 
           <mat-form-field class="example-full-width">
-            <input matInput type="text" placeholder="Estimated time for completion">
+            <input ngModel name="estimatedHrs" matInput type="text" placeholder="Estimated time for completion">
           </mat-form-field>
 
           <mat-form-field class="example-full-width">
             <mat-label>Cost associated to it</mat-label>
             <span matPrefix>$ &nbsp;</span>
-            <input type="number" matInput placeholder="150">
+            <input ngModel name="cost" type="number" matInput placeholder="150">
           </mat-form-field>
   
 

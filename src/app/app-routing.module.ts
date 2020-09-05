@@ -1,3 +1,4 @@
+import { AuthGuard } from './services/auth-guard.service';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LogInComponent } from './components/log-in/log-in.component';
@@ -16,8 +17,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'create-user-story', component: CreateUserStoryComponent },
   { path: 'user-story-list', component: UserStoryListComponent },
-  { path: 'admin-story-list', component: AdminStoryListComponent },
-  { path: 'admin-story-review', component: AdminStoryReviewComponent },
+  { path: 'admin-story-list', component: AdminStoryListComponent, canActivate: [AuthGuard]},
+  { path: 'admin-story-review', component: AdminStoryReviewComponent, canActivate: [AuthGuard] },
 
   {path: '**', component: NotfoundComponent},
 
