@@ -14,6 +14,8 @@ export class AuthService {
 
   private _url = `http://localhost:3000/api/v1`;
   token:string;
+  username:string;
+  userRole:string;
 
   constructor(
     private _http: HttpClient, 
@@ -27,8 +29,16 @@ export class AuthService {
    * @returns a bearer token
    */
   getLoggedInUserToken():string{
+    const userToken = localStorage.getItem('token');
+    const decodedToken = this.jwtHelper.decodeToken(userToken);
+    // console.log(decodedToken);
+    const {firstName, id, lastName, role, token}:any = decodedToken;
+    this.username = `${firstName} ${lastName}`;
+    this.userRole = role;
+    
     return localStorage.getItem('token')
   }
+
 
   /**
    * Logs the user in
@@ -42,8 +52,9 @@ export class AuthService {
       map(
         (response) => {
           const {firstName, id, lastName, role, token}:any = response;
+          // console.log(firstName, lastName, role, token);
           
-          // console.log(JSON.parse(JSON.stringify(response)));
+          
           let responseToken = JSON.parse(JSON.stringify(token));
           if(response && responseToken){
             localStorage.setItem('token', responseToken);
@@ -62,6 +73,7 @@ export class AuthService {
     this._router.navigate(['login'])
   }
 
+
   /**
    * Checks if the user is logged in
    * @returns a truthy value if the users token is expired
@@ -77,11 +89,11 @@ export class AuthService {
         return false;
       }
     } catch(e){
-      console.error('invalid JWT');
       this._router.navigate(['login'])
       return false;
     }
   }
+
 
   /**
    * User: Get all stories that belongs to the current User
@@ -97,6 +109,7 @@ export class AuthService {
     )
   }
 
+
   /**
    * Create a user story
    * @returns user stories
@@ -104,20 +117,13 @@ export class AuthService {
    * @var {object} story - the user story object 
    */
   postStory(userStory){
-    const bearerToken:string = this.getLoggedInUserToken();    
-    // let story = {
-    //   summary: userStory.summary,
-    //   description: userStory.description,
-    //   type: userStory.type,
-    //   complexity: userStory.complexity,
-    //   estimatedHrs: userStory.estimatedHrs,
-    //   cost: userStory.cost,
-    // }
+    const bearerToken:string = this.getLoggedInUserToken();
     return this._http.post(`${this._url}/stories`, JSON.stringify(userStory), 
     {headers: new HttpHeaders({
       'X-Auth-Token': bearerToken     
     })})
   }
+
 
   /**
    * Get the selected Story that belongs to the current User
@@ -126,6 +132,7 @@ export class AuthService {
   getSingleStory(){
     return this._http.get(`${this._url}/stories/{id}`)
   }
+
 
   /**
    * Update a user Story
@@ -141,3 +148,4 @@ export class AuthService {
       ))
   }
 }
+

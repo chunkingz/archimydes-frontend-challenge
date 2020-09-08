@@ -45,8 +45,7 @@ These are the available routes in the app at the moment
 
 ## Figma UI (Wireframing)
 
-- A rough sketch of the project can be found
-- [here.](https://www.figma.com/file/7AWoB92dMSMUffl4lj04vx/Untitled?node-id=0%3A1)
+- A rough sketch of the project can be found [here.](https://www.figma.com/file/7AWoB92dMSMUffl4lj04vx/Untitled?node-id=0%3A1)
 
 Built with :heart:
 

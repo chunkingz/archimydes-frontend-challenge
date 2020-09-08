@@ -18,6 +18,7 @@ import { CreateUserStoryComponent } from './components/create-user-story/create-
 import { UserStoryListComponent } from './components/user-story-list/user-story-list.component';
 import { AdminStoryListComponent } from './components/admin-story-list/admin-story-list.component';
 import { AdminStoryReviewComponent } from './components/admin-story-review/admin-story-review.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 
 export const tokenGetter = () => {
   return localStorage.getItem("token");
@@ -33,6 +34,7 @@ export const tokenGetter = () => {
     UserStoryListComponent,
     AdminStoryListComponent,
     AdminStoryReviewComponent,
+    NavBarComponent,
   ],
   imports: [
     BrowserModule,
