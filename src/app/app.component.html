@@ -4,12 +4,13 @@
     <!-- <span *ngIf="username">Welcome {{ username }} </span> -->
     <a mat-button routerLink="login" *ngIf="!isloggedin" mat-raised-button routerLinkActive="active">Log in</a>
     <a mat-button routerLink="register" *ngIf="!isloggedin">Register</a>
-    <a mat-button routerLink="create-user-story" *ngIf="isloggedin && !isAdminUser">Create User Story</a>
+    <a mat-button routerLink="create-user-story" *ngIf="isloggedin">Create User Story</a>
     <a mat-button routerLink="user-story-list" *ngIf="isloggedin && !isAdminUser">User Story list</a>
     <a mat-button routerLink="admin-story-list" *ngIf="isloggedin && isAdminUser">Admin Story list</a>
-    <a mat-button routerLink="admin-story-review" *ngIf="isloggedin && isAdminUser">Admin Story Review</a>
 
-    <a mat-button (click)="logout()" *ngIf="isloggedin">Log out</a>
+    <button mat-icon-button aria-label="Logout icon" (click)="logout()" *ngIf="isloggedin">
+      <mat-icon>exit_to_app</mat-icon>
+    </button>
 
   </span>
 </mat-toolbar>

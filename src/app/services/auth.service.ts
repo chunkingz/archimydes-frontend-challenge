@@ -36,7 +36,16 @@ export class AuthService {
     this.username = `${firstName} ${lastName}`;
     this.userRole = role;
     
-    return localStorage.getItem('token')
+    return userToken;
+  }
+
+  /**
+   * Get Headers
+   * @returns a header for auth
+   */
+  getHeaders(){
+    const userToken = localStorage.getItem('token');
+    return userToken ? new HttpHeaders().set('Authorization', userToken) : null;
   }
 
 
@@ -50,11 +59,8 @@ export class AuthService {
     return this._http.post(`${this._url}/signin`, 
     JSON.stringify(credentials)).pipe(
       map(
-        (response) => {
-          const {firstName, id, lastName, role, token}:any = response;
-          // console.log(firstName, lastName, role, token);
-          
-          
+        response => {
+          const {token}:any = response;
           let responseToken = JSON.parse(JSON.stringify(token));
           if(response && responseToken){
             localStorage.setItem('token', responseToken);
@@ -101,12 +107,24 @@ export class AuthService {
    * @returns user stories
    */
   getStories(){
-    const bearerToken:string = this.getLoggedInUserToken();    
-    return this._http.get(`${this._url}/stories`, 
-    {headers: new HttpHeaders({
-      'X-Auth-Token': bearerToken      
-    })}
-    )
+    if(this.isLoggedIn()){ 
+      return this._http.get(
+        `${this._url}/stories`, { headers: this.getHeaders() }
+      )
+    }
+  }
+
+  
+  /**
+   * Get a selected Story
+   * @returns a single user story
+   */
+  getSingleStory(story){
+    if(this.isLoggedIn()){ 
+      return this._http.get(
+        `${this._url}/stories/${story}`, { headers: this.getHeaders() }
+        )
+    }
   }
 
 
@@ -114,23 +132,13 @@ export class AuthService {
    * Create a user story
    * @returns user stories
    * @param {object} userStory - the users submitted story
-   * @var {object} story - the user story object 
    */
-  postStory(userStory){
-    const bearerToken:string = this.getLoggedInUserToken();
-    return this._http.post(`${this._url}/stories`, JSON.stringify(userStory), 
-    {headers: new HttpHeaders({
-      'X-Auth-Token': bearerToken     
-    })})
-  }
-
-
-  /**
-   * Get the selected Story that belongs to the current User
-   * @returns user stories
-   */
-  getSingleStory(){
-    return this._http.get(`${this._url}/stories/{id}`)
+  postStory(story){
+    if(this.isLoggedIn()){       
+      return this._http.post(
+        `${this._url}/stories`, story, {headers: this.getHeaders()}
+      )
+    }
   }
 
 
@@ -138,14 +146,17 @@ export class AuthService {
    * Update a user Story
    * @returns user stories
    */
-  updateSingleStory(story){
-    return this._http.patch(`${this._url}/stories/{id}/{status}`, 
-    JSON.stringify(story)).pipe(
-      map(
-        (response) => {
-          console.log(response)
-        }
-      ))
+  updateSingleStory(story:number, status:string){
+    
+    if(this.isLoggedIn()){       
+      return this._http.put(
+        `${this._url}/stories/${story}/${status}`, JSON.stringify(story), {headers: this.getHeaders()}
+      ).pipe(
+        map(res => {
+          if(res) return true;
+        })
+      )
+    }
   }
 }
 

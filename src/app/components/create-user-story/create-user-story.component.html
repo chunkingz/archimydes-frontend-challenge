@@ -1,4 +1,4 @@
-<div class="create-user-wrapper" fxLayout="row" fxLayoutAlign="center center">
+<div class="create-user-wrapper" fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
 
     <mat-card class="box">
       <mat-card-header>
@@ -8,17 +8,17 @@
       <form class="example-form" #f="ngForm" (ngSubmit)="createUserStory(f.value)">
         <mat-card-content>
           <mat-form-field class="example-full-width">
-            <input ngModel name="summary" matInput type="text" placeholder="Summary">
+            <input ngModel name="summary" matInput type="text" placeholder="Summary" required>
           </mat-form-field>
 
           <mat-form-field class="example-full-width">
             <mat-label>Description</mat-label>
-            <textarea ngModel name="description" matTextareaAutosize matInput placeholder="Ex. I would like to report a bug..."></textarea>
+            <textarea ngModel name="description" matTextareaAutosize matInput placeholder="Ex. I would like to report a bug..." required></textarea>
           </mat-form-field>
 
           <mat-form-field class="example-full-width">
             <mat-label>Type</mat-label>
-            <mat-select ngModel name="type">
+            <mat-select ngModel name="type" >
               <mat-option *ngFor="let type of types" [value]="type.value">
                 {{type.viewValue}}
               </mat-option>

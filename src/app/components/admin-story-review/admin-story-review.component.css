@@ -13,3 +13,16 @@
 .btn-red {
     color: red;
 }
+
+form > mat-card-content > mat-form-field, input, textarea, mat-select, mat-option {
+    cursor: not-allowed;
+}
+
+.accepted {
+    color: green;
+}
+
+.rejected {
+    color: red;
+}
+

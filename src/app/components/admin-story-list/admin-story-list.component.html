@@ -53,7 +53,13 @@
     
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr 
+      (click)="getSingleStory(row)" 
+      [class.accepted]=" row.status == 'accepted' " 
+      [class.rejected]=" row.status == 'rejected' " 
+      [class.neutral]=" row.status != 'accepted' && row.status != 'rejected' " 
+      mat-row *matRowDef="let row; columns: displayedColumns;">
+    </tr>
   </table>
   
   

@@ -19,8 +19,9 @@ export class AdminStoryListComponent implements OnInit {
     this.getUserStories();
   }
 
-
   invalidLogin: boolean;
+
+  id: number;
 
   userStories:any;
 
@@ -28,12 +29,20 @@ export class AdminStoryListComponent implements OnInit {
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
+  getSingleStory(singleStory){
+    this._auth.getSingleStory(singleStory.id).subscribe(res => {
+      this.id = res['id'];
+      localStorage.setItem('storyID', this.id.toString());
+      this._router.navigate(['admin-story-review'])
+    })
+  }
+
   getUserStories(){
     const isUserLoggedIn = this._auth.isLoggedIn();
     
     if(isUserLoggedIn) {
       this._auth.getStories().subscribe(res => {
-        this.userStories = res;
+        this.userStories = res;        
         this.userStories.sort = this.sort;
       })
     }

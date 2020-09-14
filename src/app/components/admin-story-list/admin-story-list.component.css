@@ -10,3 +10,20 @@ div {
     color: white;
     font-size: 22px;
 }
+
+tr {
+  cursor: pointer;
+}
+
+.accepted {
+  background-color: green;
+}
+
+.rejected {
+  background-color: red;
+}
+
+.neutral > .mat-cell {
+  background-color: black;
+  color: white;
+}

@@ -32,7 +32,6 @@ export class AppComponent {
 
   getUserRole(){
     if(this._auth.userRole) {
-      console.log(this._auth.userRole);
       this._auth.userRole == 'user' ? this.isAdminUser = false : this.isAdminUser = true;
     }
   }

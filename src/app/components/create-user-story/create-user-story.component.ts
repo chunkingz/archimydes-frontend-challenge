@@ -25,24 +25,25 @@ export class CreateUserStoryComponent implements OnInit {
   ngOnInit() { }
 
   types: ITypes[] = [
-    {value: 'enhancement', viewValue: 'enhancement'},
-    {value: 'bugfix', viewValue: 'bugfix'},
-    {value: 'development', viewValue: 'development'},
-    {value: 'QA', viewValue: 'QA'}
+    {value: 'enhancement', viewValue: 'Enhancement'},
+    {value: 'bugfix', viewValue: 'Bugfix'},
+    {value: 'development', viewValue: 'Development'},
+    {value: 'qa', viewValue: 'QA'}
   ];
 
   complexities: IComplexities[] = [
-    {value: 'Low', viewValue: 'Low'},
-    {value: 'Mid', viewValue: 'Mid'},
-    {value: 'High', viewValue: 'High'}
+    {value: 'low', viewValue: 'Low'},
+    {value: 'mid', viewValue: 'Mid'},
+    {value: 'high', viewValue: 'High'}
   ];
 
   createUserStory(story){
-    console.log(story);
-    
-    this._auth.postStory(story)
-    .subscribe(res => {
-      console.log(res);
-    })
+    const { summary, description, type, complexity } = story;
+    if(summary && description && type && complexity){
+      this._auth.postStory(story).subscribe()
+      this._router.navigate(['user-story-list']);
+    } else {
+      console.log('fill out the form');
+    }
   }
 }

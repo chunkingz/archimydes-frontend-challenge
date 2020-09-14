@@ -4,52 +4,59 @@
       <mat-card-header>
         <mat-card-title>Review User Story</mat-card-title>
       </mat-card-header>
-  
+
       <form class="example-form">
         <mat-card-content>
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Summary" readonly>
+            <input matInput placeholder="Summary" [value]=summary readonly>
           </mat-form-field>
 
           <mat-form-field class="example-full-width">
             <mat-label>Description</mat-label>
-            <textarea readonly matInput></textarea>
+            <textarea [value]=description matInput readonly></textarea>
           </mat-form-field>
 
           <mat-form-field class="example-full-width">
             <mat-label>Type</mat-label>
-            <mat-select>
+            <mat-select [(ngModel)]="type" name="type" [disabled]='true'>
               <mat-option *ngFor="let type of types" [value]="type.value">
                 {{type.viewValue}}
               </mat-option>
             </mat-select>
           </mat-form-field>
+          <p>selected type: {{type}}</p>
 
           <mat-form-field class="example-full-width">
             <mat-label>Complexity</mat-label>
-            <mat-select>
+            <mat-select [(ngModel)]="complexity" name="complexity" [disabled]='true'>
               <mat-option *ngFor="let complexity of complexities" [value]="complexity.value">
                 {{complexity.viewValue}}
               </mat-option>
             </mat-select>
           </mat-form-field>
+          <p>selected complexity: {{complexity}}</p>
 
           <mat-form-field class="example-full-width">
-            <input matInput type="text" placeholder="Estimated time for completion" readonly>
+            <input matInput type="text" placeholder="Estimated time for completion" [value]=estimatedHrs readonly>
           </mat-form-field>
 
           <mat-form-field class="example-full-width">
             <mat-label>Cost associated to it</mat-label>
             <span matPrefix>$ &nbsp;</span>
-            <input type="number" matInput placeholder="150" readonly>
+            <input type="number" matInput placeholder="150" [value]=cost readonly>
           </mat-form-field>
 
-            <p>Status: pending</p>
+            <!-- <p>Status: <span [style.color]="status == 'accepted' ? 'green' : 'red'"> {{status}} </span> </p> -->
+            <p>Status: 
+              <span 
+              [class.accepted]="status == 'accepted'" 
+              [class.rejected]="status == 'rejected'" > {{status}} </span> </p>
+
 
         </mat-card-content>
 
-        <button mat-stroked-button color="primary" class="btn btn-green">ACCEPT</button> &nbsp;&nbsp;
-        <button mat-stroked-button color="accent" class="btn btn-red">REJECT</button>
+        <button mat-stroked-button color="primary" class="btn btn-green" (click)="accept()">ACCEPT</button> &nbsp;&nbsp;
+        <button mat-stroked-button color="accent" class="btn btn-red" (click)="reject()">REJECT</button>
 
       </form>
     </mat-card>
