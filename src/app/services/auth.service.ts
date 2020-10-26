@@ -109,9 +109,6 @@ private _loggedInSource = new Subject();
     }
   }
 
-  isUserLoggedIn(){
-    
-  }
 
   /**
    * User: Get all stories that belongs to the current User
@@ -176,5 +173,6 @@ private _loggedInSource = new Subject();
 getLoggedInUserSubscription() {
   return this._loggedInSource;
 }
+
 }
 

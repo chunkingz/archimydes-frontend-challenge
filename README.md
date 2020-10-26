@@ -41,6 +41,14 @@ These are the available routes in the app at the moment
 
 - Run `ng build --prod` to build the project for production deployment. The build artifacts will be stored in the `dist/` directory
 
+
+---
+
+## Screenshots
+
+- The screenshots are stored in the `src/assets` directory
+
+
 ---
 
 ## Figma UI (Wireframing)
