@@ -13,8 +13,20 @@ interface IComplexities {
   viewValue: string;
 }
 
+
+interface IStory {
+  summary:string;
+  description:string;
+  type:string;
+  complexity:string;
+  estimatedHrs:number;
+  cost:number;
+  status?:string;
+}
+
+
 @Component({
-  selector: 'app-admin-story-review',
+  selector: 'admin-story-review',
   templateUrl: './admin-story-review.component.html',
   styleUrls: ['./admin-story-review.component.css']
 })
@@ -23,13 +35,6 @@ export class AdminStoryReviewComponent implements OnInit {
 
   constructor(private _auth: AuthService, private _router: Router) { }
 
-  summary:string;
-  description:string;
-  type:string;
-  complexity:string;
-  estimatedHrs:number;
-  cost:number;
-  status?:string;
 
   ngOnInit(): void {
     this.getStory();
@@ -48,18 +53,14 @@ export class AdminStoryReviewComponent implements OnInit {
     {value: 'High', viewValue: 'High'}
   ];
   
+  story: IStory;
+
   storyID = localStorage.getItem('storyID');
 
   getStory(){
     if(this.storyID){
-      this._auth.getSingleStory(this.storyID).subscribe(res => {
-        this.summary = res['summary'];
-        this.description = res['description'];
-        this.type = res['type'];
-        this.complexity = res['complexity'];
-        this.estimatedHrs = res['estimatedHrs'];
-        this.cost = res['cost'];
-        this.status = res['status'] || 'pending';
+      this._auth.getSingleStory(this.storyID).subscribe( (res:IStory) => {
+        this.story = res;
       })
     }
 

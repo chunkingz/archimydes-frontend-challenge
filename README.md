@@ -33,7 +33,7 @@ These are the available routes in the app at the moment
 - `/user-story-list` - Get Story List
 - `/admin-story-list` - Admin Story List View
 - `/admin-story-review` - Admin Story Review
-- `/**` - A wild card route that shows you a 404 page.
+- `/**` - A wild card route that shows you a 404 page for invalid routes/urls.
 
 ---
 

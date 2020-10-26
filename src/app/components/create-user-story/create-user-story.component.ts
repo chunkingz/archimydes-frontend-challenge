@@ -13,16 +13,19 @@ interface IComplexities {
 }
 
 @Component({
-  selector: 'app-create-user-story',
+  selector: 'create-user-story',
   templateUrl: './create-user-story.component.html',
   styleUrls: ['./create-user-story.component.css']
 })
+
 
 export class CreateUserStoryComponent implements OnInit {
 
   constructor(private _router: Router, private _auth: AuthService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    if(!this._auth.isLoggedIn()) this._router.navigate(['login'])
+  }
 
   types: ITypes[] = [
     {value: 'enhancement', viewValue: 'Enhancement'},
@@ -38,12 +41,12 @@ export class CreateUserStoryComponent implements OnInit {
   ];
 
   createUserStory(story){
-    const { summary, description, type, complexity } = story;
-    if(summary && description && type && complexity){
-      this._auth.postStory(story).subscribe()
-      this._router.navigate(['user-story-list']);
-    } else {
-      console.log('fill out the form');
-    }
+      const { summary, description, type, complexity } = story;
+      if(summary && description && type && complexity){
+        this._auth.postStory(story).subscribe()
+        this._router.navigate(['user-story-list']);
+      } else {
+        console.log('fill out the form');
+      }
   }
 }

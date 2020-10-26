@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-admin-story-list',
+  selector: 'admin-story-list',
   templateUrl: './admin-story-list.component.html',
   styleUrls: ['./admin-story-list.component.css']
 })

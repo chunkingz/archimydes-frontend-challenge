@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-log-in',
+  selector: 'log-in',
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.css']
 })
@@ -19,11 +19,8 @@ export class LogInComponent implements OnInit {
 
   signIn(credentials){
 
-    credentials.isAdmin == "" || credentials.isAdmin == false ? 
-    credentials.isAdmin = false : 
-    credentials.isAdmin = true;
-
-    // console.log(credentials);
+    credentials.isAdmin == "" || credentials.isAdmin == false 
+    ? credentials.isAdmin = false : credentials.isAdmin = true;
 
     this._auth.login(credentials)
     .subscribe(res => {

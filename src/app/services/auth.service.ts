@@ -1,21 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from "@auth0/angular-jwt";
-import { Observable, throwError, pipe } from 'rxjs';
-import { catchError, retry, map } from 'rxjs/operators';
-import { summaryFileName } from '@angular/compiler/src/aot/util';
+import { Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  
+private _loggedInSource = new Subject();
 
   private _url = `http://localhost:3000/api/v1`;
   token:string;
   username:string;
   userRole:string;
+  isUserNull: boolean;
 
   constructor(
     private _http: HttpClient, 
@@ -31,12 +32,12 @@ export class AuthService {
   getLoggedInUserToken():string{
     const userToken = localStorage.getItem('token');
     const decodedToken = this.jwtHelper.decodeToken(userToken);
-    // console.log(decodedToken);
+    if(userToken != null && decodedToken){
     const {firstName, id, lastName, role, token}:any = decodedToken;
     this.username = `${firstName} ${lastName}`;
     this.userRole = role;
-    
     return userToken;
+    }
   }
 
   /**
@@ -56,18 +57,24 @@ export class AuthService {
    */
   login(credentials) {
     
-    return this._http.post(`${this._url}/signin`, 
-    JSON.stringify(credentials)).pipe(
-      map(
-        response => {
-          const {token}:any = response;
-          let responseToken = JSON.parse(JSON.stringify(token));
-          if(response && responseToken){
-            localStorage.setItem('token', responseToken);
-            return true;
+    return this._http.post(
+      `${this._url}/signin`, JSON.parse(JSON.stringify(credentials)), {headers: this.getHeaders()})
+      .pipe(
+        map(
+          response => {
+            console.log(response);
+            
+            const {token}:any = response;
+            let responseToken = JSON.parse(JSON.stringify(token));
+            if(response && responseToken){
+              localStorage.setItem('token', responseToken);
+              this._loggedInSource.next();
+              return true;
+            }
+            return false;
           }
-          return false;
-    }))
+        )
+      )
   }
 
 
@@ -76,6 +83,8 @@ export class AuthService {
    */
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('storyID');
+    this._loggedInSource.next();
     this._router.navigate(['login'])
   }
 
@@ -100,6 +109,9 @@ export class AuthService {
     }
   }
 
+  isUserLoggedIn(){
+    
+  }
 
   /**
    * User: Get all stories that belongs to the current User
@@ -158,5 +170,11 @@ export class AuthService {
       )
     }
   }
+
+
+
+getLoggedInUserSubscription() {
+  return this._loggedInSource;
+}
 }
 

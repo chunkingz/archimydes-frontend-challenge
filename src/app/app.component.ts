@@ -1,5 +1,6 @@
 import { AuthService } from './services/auth.service';
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -7,19 +8,41 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy{
   title = 'archimydes-frontend';
   isloggedin:any;
   isAdminUser:boolean;
   username:string;
+  private _loggedInSubscription: Subscription;
 
   constructor(private _auth:AuthService){
+    this.refreshUserInfo();
+  }
+
+  ngOnInit() {
+    this.triggerNavbarUpdate();
+  }
+
+  triggerNavbarUpdate() {
+    this._loggedInSubscription = this._auth.getLoggedInUserSubscription().subscribe(() => {
+      this.refreshUserInfo();
+    })
+  }
+
+  refreshUserInfo () {
     this.isloggedin = this._auth.isLoggedIn();
     // this.getUserName();
     this.getUserRole();
   }
+
+  ngOnDestroy() {
+    this._loggedInSubscription.unsubscribe();
+  }
   
-  logout(){ this._auth.logout(); }
+  logout(){
+    this.triggerNavbarUpdate();
+    this._auth.logout(); 
+  }
 
   
   // getUserName(){

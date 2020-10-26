@@ -17,10 +17,10 @@ export class UserStoryListComponent implements OnInit {
   constructor(private _auth: AuthService, private _router: Router) { }
 
   ngOnInit() {
-    this.getUserStories();
+    const isUserLoggedIn = this._auth.isLoggedIn();
+    if(!isUserLoggedIn) this._router.navigate(['login'])
+    if(isUserLoggedIn) this.getUserStories();
   }
-
-  invalidLogin: boolean;
 
   userStories:any;
 
@@ -30,19 +30,10 @@ export class UserStoryListComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   getUserStories(){
-    const isUserLoggedIn = this._auth.isLoggedIn();    
-    
-    if(isUserLoggedIn) {
       this._auth.getStories().subscribe(res => {
-        
         this.userStories = res;
         this.userStories.sort = this.sort;
-      })
-    }
-    if(!isUserLoggedIn) {
-      this.invalidLogin = true;
-      this._router.navigate(['login'])
-    }
+      })    
   }
 
   doFilter = (value: string) => {    

@@ -8,49 +8,50 @@
       <form class="example-form">
         <mat-card-content>
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Summary" [value]=summary readonly>
+            <input matInput placeholder="Summary" [value]=story.summary readonly>
           </mat-form-field>
 
           <mat-form-field class="example-full-width">
             <mat-label>Description</mat-label>
-            <textarea [value]=description matInput readonly></textarea>
+            <textarea [value]=story.description matInput readonly></textarea>
           </mat-form-field>
 
           <mat-form-field class="example-full-width">
             <mat-label>Type</mat-label>
-            <mat-select [(ngModel)]="type" name="type" [disabled]='true'>
+            <mat-select [(ngModel)]="story.type" name="type" [disabled]='true'>
               <mat-option *ngFor="let type of types" [value]="type.value">
                 {{type.viewValue}}
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <p>selected type: {{type}}</p>
+          <p>selected type: {{story.type}}</p>
 
           <mat-form-field class="example-full-width">
             <mat-label>Complexity</mat-label>
-            <mat-select [(ngModel)]="complexity" name="complexity" [disabled]='true'>
+            <mat-select [(ngModel)]="story.complexity" name="complexity" [disabled]='true'>
               <mat-option *ngFor="let complexity of complexities" [value]="complexity.value">
                 {{complexity.viewValue}}
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <p>selected complexity: {{complexity}}</p>
+          <p>selected complexity: {{story.complexity}}</p>
 
           <mat-form-field class="example-full-width">
-            <input matInput type="text" placeholder="Estimated time for completion" [value]=estimatedHrs readonly>
+            <input matInput type="text" placeholder="Estimated time for completion" [value]=story.estimatedHrs readonly>
           </mat-form-field>
 
           <mat-form-field class="example-full-width">
             <mat-label>Cost associated to it</mat-label>
             <span matPrefix>$ &nbsp;</span>
-            <input type="number" matInput placeholder="150" [value]=cost readonly>
+            <input type="number" matInput placeholder="150" [value]=story.cost readonly>
           </mat-form-field>
 
-            <!-- <p>Status: <span [style.color]="status == 'accepted' ? 'green' : 'red'"> {{status}} </span> </p> -->
             <p>Status: 
               <span 
-              [class.accepted]="status == 'accepted'" 
-              [class.rejected]="status == 'rejected'" > {{status}} </span> </p>
+              [class.accepted]="story.status == 'accepted'" 
+              [class.rejected]="story.status == 'rejected'" > {{story.status}} 
+              </span> 
+            </p>
 
 
         </mat-card-content>
